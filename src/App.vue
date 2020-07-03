@@ -1,17 +1,56 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Mylist v-bind:title="message"
+    v-on:result-event="appAction" />
+    <hr>
+    <div><table v-html="log" align="center"></table></div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Mylist from './components/Mylist.vue'
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
+    Mylist
+  },
+  data:function(){
+    return {
+      message:"メモを入力してください",
+      mylist:[],
+      cnt:0,
+    };
+  },
+  computed:{
+    log:function(){
+      var table="<tr><th class='head'>mylist</th></tr>";
+      for(var i in this.mylist){
+        table += "<tr><td>"+this.mylist[i]+"</td></tr>";
+      }
+      return table;
+    }
+  },
+  created:function(){
+    //var itmes=localStorage.getItem("log");
+    //var logs=JSON.parse(itmes);
+    //if(logs != null){this.mylist = logs;}
+    
+  },
+  methods:{
+    appAction:function(input_text){
+      if(this.mylist.length >= 5){
+        //var num=this.cnt%5;
+        this.mylist.unshift(input_text);
+        this.mylist.splice(5,1);
+        this.cnt++;
+      }else{
+        this.mylist.unshift(input_text);
+        this.cnt+=1;
+      }
+      //var log=JSON.stringify(this.mylist);
+      //localStorage.setItem("log",log);
+    }
   }
 }
 </script>
@@ -25,4 +64,17 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+tr td{
+  padding:5px;
+  border:1px solid gray;
+}
+th tr{
+  padding:5px;
+  border:1px solid gray;
+}
+tr th.head{
+  background-color:black;
+  color:white;
+}
+
 </style>
