@@ -32,15 +32,11 @@ export default {
     }
   },
   created:function(){
-    //var itmes=localStorage.getItem("log");
-    //var logs=JSON.parse(itmes);
-    //if(logs != null){this.mylist = logs;}
     
   },
   methods:{
     appAction:function(input_text){
       if(this.mylist.length >= 5){
-        //var num=this.cnt%5;
         this.mylist.unshift(input_text);
         this.mylist.splice(5,1);
         this.cnt++;
@@ -48,8 +44,6 @@ export default {
         this.mylist.unshift(input_text);
         this.cnt+=1;
       }
-      //var log=JSON.stringify(this.mylist);
-      //localStorage.setItem("log",log);
     }
   }
 }
